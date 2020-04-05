@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/swiper-3.2.7.min.css"/>
+	<link rel="stylesheet" href="/themes/css/home.css"/>
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		.container {
+			width: 100%;
+		}
+
+		.swiper1 {
+			width: 100%;
+			background: #efefef;
+		}
+
+		.swiper1 .selected {
+			color: #ec5566;
+		}
+
+		.swiper1 .swiper-slide {
+			text-align: center;
+			font-size: 14px;
+			height: 40px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.swiper2 {
+			width: 100%;
+		}
+
+		.swiper2 .swiper-slide {
+			height: calc(100vh - 50px);
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+		}
+	</style>
+</head>
+<body>
+	<section class="aui-content" id="user-info" >
+		<div class="aui-list aui-media-list aui-list-noborder aui-bg-info" style="padding:14px 0">
+			<div class="aui-list-item aui-list-item-middle" style="background-image:none">
+				<div class="aui-media-list-item-inner ">
+					<div class="aui-list-item-media" style="width:3rem;">
+						<img id="u_img" src="\pic\Chris-Paul-says-he-expected-OKC-to-fight-for-a-playoff-position-at-the-start-of-the-season.jpg" class="aui-img-round">
+					</div>
+					<div class="aui-list-item-inner ">
+						<div id="u_name" class="aui-list-item-text text-white aui-font-size-18" style="color:#fff  "><a href="/views/login.html?state=1" style="color:#fefdfe ; cursor:pointer">游客 ! 请登录</a></div>
+						<div class="aui-list-item-text text-white">
+							<div style="color:#fff" ><i class="aui-iconfont aui-icon-mobile aui-font-size-14" style="color:#fff" ></i><span id="u_email">xxx</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="aui-row aui-clear-cl ">
+				<div class="aui-col-xs-4 aui-border-r">
+					<a class="hide" href="my-newest.html">
+						<div class="aui-clear-cl1">3435</div>
+						<div class="aui-gird-lable aui-font-size-12">动态</div>
+					</a>
+				</div>
+				<div class="aui-col-xs-4 aui-border-r">
+					<a  class="hide" href="my-follow.html">
+						<div class="aui-clear-cl1">433545</div>
+						<div class="aui-gird-lable aui-font-size-12">关注</div>
+					</a>
+				</div>
+				<div class="aui-col-xs-4">
+					<a class="hide" href="my-fans.html">
+						<div class="aui-clear-cl1">67809</div>
+						<div class="aui-gird-lable aui-font-size-12">粉丝</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="aui-content aui-content-size">
+		<div class="aui-grid">
+			<div class="aui-row">
+				<div class="aui-col-xs-3">
+					<a class="hide" href="my-subscribe.html">
+						<i class="aui-iconfont aui-icon-mail aui-text-info"></i>
+						<div class="aui-grid-label">订阅</div>
+					</a>
+				</div>
+				<div class="aui-col-xs-3">
+					<a class="hide" href="my-collection.html">
+						<i class="aui-iconfont aui-icon-like aui-text-warning"></i>
+						<div class="aui-grid-label">收藏</div>
+					</a>
+				</div>
+				<div class="aui-col-xs-3">
+					<a class="hide" href="my-post.html">
+						<i class="aui-iconfont aui-icon-pencil aui-text-warning"></i>
+						<div class="aui-grid-label">评论</div>
+					</a>
+				</div>
+				<div class="aui-col-xs-3">
+					<a class="hide" href="my-read.html">
+						<i class="aui-iconfont aui-icon-date aui-text-info"></i>
+						<div class="aui-grid-label">阅读</div>
+					</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<div class="aui-he"></div>
+	<section class="aui-content" style="padding-bottom:50px;">
+		<ul class="aui-list aui-list-in " style="background-image:none">
+			<li class="aui-list-item" style="background-image:none">
+				<a class="hide"  href="form_frm.html">
+					<div class="aui-list-item-label-icon">
+						<i class="aui-iconfont aui-icon-location aui-text-info"></i>
+					</div>
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title aui-black">个人信息</div>
+					</div>
+				</a>
+			</li>
+			<div class="aui-he"></div>
+			<li class="aui-list-item" style="background-image:none">
+				<a  class="hide" href="my-newest.html">
+					<div class="aui-list-item-label-icon">
+						<i class="aui-iconfont aui-icon-like aui-text-danger"></i>
+					</div>
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title aui-black">最新动态</div>
+					</div>
+				</a>
+			</li>
+			<div class="aui-he"></div>
+			<li class="aui-list-item" style="background-image:none">
+				<a id="sss" class="hide" href="my-off.html">
+					<div class="aui-list-item-label-icon">
+						<i class="aui-iconfont aui-icon-image aui-text-info"></i>
+					</div>
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title aui-black">离线阅读</div>
+					</div>
+				</a>
+			</li>
+			<div class="aui-he"></div>
+
+			<li class="aui-list-item" style="background-image: none">
+				<a class="hide" href="my-feedback.html">
+					<div class="aui-list-item-label-icon">
+						<i class="aui-iconfont aui-icon-cert aui-text-warning"></i>
+					</div>
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title aui-black">意见反馈</div>
+					</div>
+				</a>
+			</li>
+			<div class="aui-he"></div>
+				<li class="aui-list-item" style="background-image:none">
+				<a href=""  onclick="logout()">
+					<div class="aui-list-item-label-icon">
+						<i class="aui-iconfont aui-icon-back aui-text-info"></i>
+					</div>
+					<div class="aui-list-item-inner aui-list-item-arrow">
+						<div class="aui-list-item-title aui-black">退出</div>
+						
+					</div>
+				</a>
+			</li>
+			<div class="aui-he"></div>
+		</ul>
+	</section>
+
+
+	<footer class="aui-bar aui-bar-tab" id="footer" style="border-top:1px solid #ddd; background:#efefef">
+		<div class="aui-bar-tab-item " tapmode>
+			<a href="index.html">
+				<i class="aui-iconfont aui-icon-home"></i>
+				<div class="aui-bar-tab-label">首页</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="focus.html">
+				<i class="aui-iconfont aui-icon-like"></i>
+				<div class="aui-bar-tab-label">要闻</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="video.html">
+				<i class="aui-iconfont aui-icon-video"></i>
+				<div class="aui-bar-tab-label">视频</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item aui-active" tapmode>
+			<a href="my.html">
+				<i class="aui-iconfont aui-icon-my"></i>
+				<div class="aui-bar-tab-label">我的</div>
+			</a>
+		</div>
+	</footer>
+<script type="text/javascript">
+/* document.getElementById('sss').onclick = function () {
+    // 告诉浏览器：这次点击不要再跳转了
+    return false;} */
+
+$.post("/my/getmanager",function(rs){
+	
+	
+	
+	console.log(rs);
+	//alert(rs==null||rs=="")
+	if(rs==null||rs==""){
+	
+		$(".hide").bind("click",function(){
+			 return false;
+		});
+		
+	}else{
+		$("#u_name").text(rs.mname);
+		$("#u_email").text(rs.email);
+		$("#u_img").attr("src",rs.img);
+	}
+
+});
+    
+    //退出登录
+function logout(){
+	$.post("/my/logout",function(rs){
+		location.reload(); 
+		
+	
+	});
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+
+	<script type="text/javascript">
+	    $(function() {
+	        function setCurrentSlide(ele, index) {
+	            $(".swiper1 .swiper-slide").removeClass("selected");
+	            ele.addClass("selected");
+	        }
+
+	        var swiper1 = new Swiper('.swiper1',{
+
+	            slidesPerView: 5.5,
+	            paginationClickable: true,
+	            spaceBetween: 1,
+	            freeMode: true,
+	            loop: false,
+	            onTab: function(swiper) {
+	                var n = swiper1.clickedIndex;
+	            }
+	        });
+	     /*    swiper1.slides.each(function(index, val) {
+	            var ele = $(this);
+	            ele.on("click", function() {
+	                setCurrentSlide(ele, index);
+	                swiper2.slideTo(index, 500, false);
+	            });
+	        }); */
+
+	        var swiper2 = new Swiper('.swiper2',{
+	            direction: 'horizontal',
+	            loop: false,
+	            //					effect : 'fade',//淡入
+	            //effect : 'cube',//方块
+	            //effect : 'coverflow',//3D流
+	            //					effect : 'flip',//3D翻转
+	            autoHeight: true,
+	            onSlideChangeEnd: function(swiper) {
+	                //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+	                var n = swiper.activeIndex;
+	                setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+	                swiper1.slideTo(n, 500, false);
+	            }
+	        });
+	    });
+	    
+	    
+	    
+	</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+ 
+    <title>每日一点</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/manager/base.css">
+    <link rel="stylesheet" type="text/css" href="/css/manager/frame_sys.css">
+    <link rel="stylesheet" type="text/css" href="/css/manager/iconfont.css">
+     <link rel="stylesheet" type="text/css" href="/css/manager/layui.css">
+    <script type="text/javascript" src="/js/jquery.min.js"></script> 
+    <script type="text/javascript" src="/js/manager/frame.js"></script>
+    <!--分页插件-->
+    <link rel="stylesheet" type="text/css" href="/css/manager/jquery.page.css">
+    <script type="text/javascript" src="/js/manager/jquery.page.js"></script>
+
+    <!--自定义滚动条-->
+    <script type="text/javascript" src="/js/manager/jquery-ui-1.10.4.min.js"></script> 
+    <script type="text/javascript" src="/js/manager/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="/js/manager/jquery.mCustomScrollbar.min.js"></script>
+    	
+    <link rel="stylesheet" type="text/css" href="/css/manager/jquery.mCustomScrollbar.css">
+	
+
+</head>
+<body>
+
+<div class="top">
+    <p>新闻后台管理</p>
+    <span>
+       <a class="but" href="javascript:show()"> <i class="iconfont">&#xe6a3;</i>退出系统</a>
+        <a class="but" href="#"><i class="iconfont">&#xe600;</i>返回首页</a>
+       <a>欢迎您</a> <a id="mname">管理员</a>
+    </span>
+</div>
+<style>
+#mainIframe{
+  width: 1166px;
+
+    height: 900px;  
+    
+    }
+    #mCSB_2_container{
+
+  /*   height:900px; 
+    max-height: 2035px;  */
+    
+    }
+
+</style>
+<div class="main">
+
+    <div class="menu">
+        <div class="menuList">
+            <ul class="menu1">
+
+              	 <!-- 用户管理 -->
+                  <li class="menuli1">
+                    <a class="menua1" href="javascript:menu_ajax('listManger.html', ' 用户管理'      )"><i class="iconfont left">&#xe713;</i>
+                        <p>用户管理</p></a>
+                </li>
+                <!-- 新闻管理-->
+                <li class="menuli1">
+                    <a class="menua1" href="javascript:void(0)"><i class="iconfont left">&#xe66b;</i>
+                        <p>新闻管理</p><i
+                                class="iconfont right">&#xe608;</i></a>
+                    <ul class="menu2">
+                        <li class="menuli2"><a class="menua2"   href="javascript:menu_ajax('addnews	.html', '  新闻管理,新闻添加 ')"><i
+                                class="menua2_ico"><span></span></i>新闻添加</a></li>
+                        <li class="menuli2"><a class="menua2" href="javascript:menu_ajax('checknew.html ', '新闻管理，新闻审核')"><i
+                                class="menua2_ico"><span></span></i>新闻审核</a></li>
+                          <li class="menuli2"><a class="menua2" href="javascript:menu_ajax('newlist.html ', '新闻管理,新闻查看')"><i
+                                class="menua2_ico"><span></span></i>新闻查看</a></li>
+                    </ul>
+                </li>
+                
+                  </li>
+                
+                
+                <!-- 评论管理 -->
+                <li class="menuli1">
+                    <a class="menua1" href="javascript:void(0)"><i class="iconfont left">&#xe697;</i>
+                        <p>评论管理</p><i class="iconfont right">&#xe608;</i></a>
+                               
+                    <ul class="menu2">
+                        <li class="menuli2"><a class="menua2" href="javascript:menu_ajax('checkcomment.html', '评论管理,评论审核')"><i
+                                class="menua2_ico"><span></span></i>评论审核</a></li>
+                        <li class="menuli2"><a class="menua2" href="javascript:menu_ajax('listcomment.html', '评论管理,评论查看')"><i
+                                class="menua2_ico"><span></span></i>评论查看</a></li>
+                       
+                    </ul>
+                </li>
+               
+                <li class="menuli1">
+                    <a class="menua1" href="javascript:menu_ajax('notice.html', '公告牌' )"><i class="iconfont left">&#xe711;</i>
+                        <p>公告牌</p></a>
+
+            </ul>
+        </div>
+    </div>
+
+   <div class="main_body">
+        <div class="main_body_title"><font>后台主页</font></div>
+        <div class="main_body_con">
+        	<iframe id="mainIframe" style="min-height: 900px;" onload="this.height=this.contentWindow.document.body.scrollHeight"   src="listManger.html" scrolling="no"></iframe>
+        </div>
+    </div>
+
+</div>
+
+<div class="copyright">
+    Copyright©2019 毕业设计
+</div>
+
+
+
+
+
+<script>
+
+$.post("/manager/getmanager",function(rs){
+	
+	$("#mname").html(rs.mname);
+	
+});
+
+function show() {
+
+	
+	$.post("/my/logout",function(rs){
+
+	window.location.href="/views/login.html";
+	
+
+},"json");
+	
+
+	
+}
+
+    $(".menu").mCustomScrollbar({
+        scrollButtons:{
+            enable:false,
+            scrollType:"continuous",
+            scrollSpeed:20,
+            scrollAmount:40
+        },
+        horizontalScroll:false
+    });
+    $(".main_body_con").mCustomScrollbar({
+        scrollButtons:{
+            enable:false,
+            scrollType:"continuous",
+            scrollSpeed:20,
+            scrollAmount:40
+        },
+        horizontalScroll:false
+    });
+</script>
+</body>
+</html>

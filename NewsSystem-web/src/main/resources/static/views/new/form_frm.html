@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+	<script type="text/javascript" src="/js/upload.js"></script>
+	<script type="text/javascript" src="/js/jquery.form.min.js"></script>
+	<script type="text/javascript">
+      $(function(){
+            $('.tabPanel ul li').click(function(){
+                $(this).addClass('hit').siblings().removeClass('hit');
+                $('.panes>div:eq('+$(this).index()+')').show().siblings().hide();
+            })
+        }) 
+	</script>
+	<style type="text/css">
+		.swiper2 {
+			width: 100%;
+		}
+
+		.swiper2 .swiper-slide {
+			height: calc(100vh - 50px);
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+		}</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-light">
+		<a href="javascript:" onclick="history.back(); " class="aui-pull-left aui-btn" >
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="aui-title aui-font-size-14" style="color:#fff">个人信息</div>
+	</header>
+	<form id="forms" method="post" enctype="multipart/form-data" >
+	
+	 <input type="hidden"name="mid"    id="mid" placeholder="mid">
+	 
+	 <div class="aui-content aui-margin-b-15" style="margin-top: 12px;">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-header">带有输入框</li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+      		              <div class="aui-list-item-label">
+                   			     账号
+       		             </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" id="account"  name="account" placeholder="Name">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                 		       姓名
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text"name="mname"    id="mname" placeholder="name">
+                    </div>
+                </div>
+            </li>
+                <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+      		              <div class="aui-list-item-label">
+                   			     邮箱
+       		             </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" name="email"   id="email" placeholder="email">
+                    </div>
+                </div>
+            </li>
+                <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+      		              <div class="aui-list-item-label">
+                   			     生日
+       		             </div>
+                    <div class="aui-list-item-input">
+                        <input type="date" name="birthday"    id="birthday" placeholder="birthday">
+                    </div>
+                </div>
+            </li>
+              <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                	      性别
+                    </div>
+                    <div class="aui-list-item-input">
+                        <select   id="sex" name="sex"  >
+                            <option id="nan"  value="0" >男</option>
+                            <option id="nv"   value="1"  >女</option>
+                      
+                        </select>
+                    </div>
+                </div>
+          </li>
+       
+            
+             <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                	      头像
+                    </div>
+                   <div class="aui-list-item-input"> 
+                  <img id="img" src="" style="max-width: 50%;">
+                     <!-- <div id="drop_area"></div> -->
+                     <input type="file" hidden="true" name="myFile" id="myFile" onchange="addimg(this)">
+                    </div>
+                     <input type="hidden"  name="img" id="imgs" 
+                </div>
+          </li>
+            
+            
+
+
+            
+            
+         
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                    <div class="aui-btn aui-btn-info aui-margin-r-5" onclick="ediort()">编辑</div>
+                    <div class="aui-btn aui-btn-danger aui-margin-l-5" onclick="updates()">修改</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+  
+ 
+              </ul>
+    </div></form>
+	<footer class="aui-bar aui-bar-tab" id="footer" style="border-top:1px solid #ddd; background:#efefef">
+		<div class="aui-bar-tab-item " tapmode>
+			<a href="index.html">
+				<i class="aui-iconfont aui-icon-home"></i>
+				<div style="color: #666;" class="aui-bar-tab-label">首页</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="focus.html">
+				<i class="aui-iconfont aui-icon-like"></i>
+				<div class="aui-bar-tab-label">要闻</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="video.html">
+				<i class="aui-iconfont aui-icon-video"></i>
+				<div class="aui-bar-tab-label">视频</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item aui-active" tapmode>
+			<a href="my.html">
+				<i class="aui-iconfont aui-icon-my"></i>
+				<div class="aui-bar-tab-label">我的</div>
+			</a>
+		</div>
+	</footer>
+	
+</body>
+<script type="text/javascript" src="/themes/js/api.js" ></script>
+
+
+
+
+<script type="text/javascript">
+function updates() {
+	
+	//异步上传表单     
+	if($("#myFile").val()==""){
+	 	var dates=$("#forms").serialize();
+		console.log(dates);
+	$.post("/manager/updateManager",dates,function(rs){
+		console.log(rs);
+		alert(rs.msg);
+	})
+    
+		
+	}else{
+		 var option = {
+		            type:'POST',
+		            url:'/new/upload',
+		            dataType:'json',
+		            data:{
+		            	 fileName : 'myFile'//对应文件上传的name值·
+		            },
+		            success:function(rs){
+		            	
+		            	$("#imgs").val(rs.data[0]);
+		            	
+		            	var dates=$("#forms").serialize();
+		        		console.log(dates);
+		        	$.post("/manager/updateManager",dates,function(rs){
+		        		console.log(rs);
+		        		alert(rs.msg);
+		        	})
+		            
+		            }    
+		        };
+			 $("#forms").ajaxSubmit(option);
+	}
+		
+	
+}
+
+//预览图片
+function addimg(event){
+	var file = event.files[0];
+	 //获取文件阅读器
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(){
+        //给img的src设置图片url
+       $("#img").attr("src", this.result);
+    }
+	
+}
+//点击图片触发文件上传
+$('#img').click(function () {
+
+    return $('#myFile').click(); //注意这句，主要是需要return点击事件返回值
+});
+
+
+//点击编辑按钮 触发  表单可编辑状态
+function ediort() {
+	
+	$('input,select').prop('disabled',false);
+	$('#account').prop('disabled','disabled');
+	
+}
+var st =["男","女"];
+
+
+//表单初始化内容
+$(function(){
+	$.post("/my/getmanager",function(rs){
+		
+		
+		
+		console.log(rs);
+
+		if(rs==null||rs==""){
+			
+		}else{
+			$("#mid").val(rs.mid);
+			$("#mname").val(rs.mname);
+			$("#email").val(rs.email);
+			$("#account").val(rs.account);
+		
+			$("#img").attr("src",rs.img)
+		 	if( rs.sex==0){
+				$("#nan").attr( "selected","selected")
+				
+			}else{
+				$("#nv").attr("selected","selected")
+			} 
+			//$("#sex").html(" <option  value='"+ rs.sex+" ' >"+st[rs.sex]+"</option>");
+			$("#birthday").val(rs.birthday);
+			$('input,select').prop('disabled',"disabled");
+				
+			//$("form").prop('readonly',true);
+		}
+
+	});
+})
+
+
+var swiper2 = new Swiper('.swiper2',{
+    direction: 'horizontal',
+    loop: false,
+    //					effect : 'fade',//淡入
+    //effect : 'cube',//方块
+    //effect : 'coverflow',//3D流
+    //					effect : 'flip',//3D翻转
+    autoHeight: true,
+    onSlideChangeEnd: function(swiper) {
+        //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+        var n = swiper.activeIndex;
+        setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+        swiper1.slideTo(n, 500, false);
+    }
+});
+</script>
+</html>

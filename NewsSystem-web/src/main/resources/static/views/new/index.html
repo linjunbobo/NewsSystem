@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/swiper-3.2.7.min.css"/>
+	<link rel="stylesheet" href="/themes/css/home.css"/>	
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+
+	
+	 <link href="/css/video-js.min.css" rel="stylesheet">
+	  <script src="/js/video.min.js"></script> 
+	   
+	    <script src="/js/getUrlParam.js"></script>
+	      <script src="/js/mui.min.js"></script>
+	    <link href="/css/mui.min.css" rel="stylesheet"/>
+
+	<style>
+		body{
+			margin:0;
+			padding:0;
+			
+		}
+		.aui-middle-dome-img{border:0 solid #000; background: white; width:30%; height:70px;overflow:hidden} 
+		.aui-middle-dome-img img{max-height:70px;_height:expression(this.height > 70 ? "70px" : this.width);} 
+		.container {
+			width: 100%;
+		}
+
+		.swiper1 {
+			width: 100%;
+			background: #efefef;
+		}
+
+		.swiper1 .selected {
+			color: #ec5566;
+		}
+
+		.swiper1 .swiper-slide {
+			text-align: center;
+			font-size: 14px;
+			height: 40px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.swiper2 {
+			width: 100%;
+		}
+
+		.swiper2 .swiper-slide {
+			height: calc(100vh - 50px);
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+			
+		}
+		.aui-icon-display:before {
+   		 content: "\e612";
+  		  margin: 5px;
+	}
+	.mui-popover {
+	right: 50px;
+	background-color: #000c;
+	}
+	.mui-backdrop{
+	background-color: transparent;
+	}
+	</style>
+</head>
+<body>
+
+
+	<div class="container">
+
+		<!-- 头部信息 begin -->
+			
+			<div class="aui-header">
+				<div class="aui-header-box clearfix">
+					<div class="aui-header-logo">
+						<a href="index.html">
+							<img src="/themes/img/logo/logo.png" alt="">
+						</a>
+					</div>
+					<div class="aui-header-sou">
+						<a href="search.html">
+							<span><i class="aui-iconfont aui-icon-search"></i></span>
+						</a>
+					</div>
+				</div>
+				<div class="swiper-container swiper1 b-line">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide 	" >推荐</div>
+						<div class="swiper-slide" id="test" onclick="shownew(2)">国内</div>
+						<div class="swiper-slide" onclick="shownew(3)">国际</div>
+						<div class="swiper-slide" onclick="shownew(4)">政治</div>
+						<div class="swiper-slide" onclick="shownew(5)">财经</div>
+						<div class="swiper-slide" onclick="shownew(6)">体育</div>
+						<div class="swiper-slide" onclick="shownew(7)">娱乐</div>
+						<div class="swiper-slide" onclick="shownew(8)">军事</div>
+						<div class="swiper-slide" onclick="shownew(9)">教育</div>
+						<div class="swiper-slide" onclick="shownew(10)">科技</div>
+						<div class="swiper-slide" onclick="shownew(11)">NBA</div>
+					</div>
+				</div>
+			</div>
+		<!-- 头部信息 end -->
+
+		<!-- 内容信息 begin -->
+			<div  class="swiper-container swiper2" style="padding-top:85px; padding-bottom:49px;">
+				<div id="refreshContainer" class="swiper-wrapper">
+				
+	
+					<!--推荐  -->
+					<div  id="refreshContainer_1" class="swiper-slide swiper-no-swiping">
+					<!--公告牌  -->
+	<div id="popover" class="mui-popover">
+ 	<div class="md-content" >
+      <h4>公告牌</h4>
+      <div >
+    
+        <ul style="margin-top: 20px; font-size: 14px; ">
+          <li id="notice" style="display:inline;line-height:37px;height:auto;word-break:break-all;word-wrap : break-word ">
+           djkashdkajsdhksjad</li>
+                
+        </ul>
+     
+      </div>
+    </div>
+</div>
+					<section id="tuijian_1" class="aui-middle-dome">
+					</section> 
+					</div>
+				
+					
+					
+					<!-- 视频 -->
+					<div   id="refreshContainer_2" class="swiper-slide swiper-no-swiping">
+					<section id="tuijian_2" class="aui-middle-dome">
+					</section>
+
+					</div>
+					<!--国内  -->
+					<div id="refreshContainer_3" class="swiper-slide swiper-no-swiping">
+					
+						<section  id="tuijian_3"  class="aui-middle-dome">
+							
+						</section>
+					</div>
+					
+					
+					
+					<!--国际  -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_4" >
+						<section class="aui-middle-dome" id="tuijian_4" >
+						
+						</section>
+					</div>
+					
+					<!--政治 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_5">
+						<section class="aui-middle-dome" id="tuijian_5" >
+						
+						</section>
+					</div>
+					
+					<!-- 财经 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_6">
+						<section class="aui-middle-dome" id="tuijian_6">
+					
+						</section>
+					</div>
+					
+					<!-- 体育 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_7">
+						<section class="aui-middle-dome"  id="tuijian_7">
+						
+						</section>
+					</div>
+					
+					<!-- 娱乐 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_8">
+						<section class="aui-middle-dome" id="tuijian_8">
+						
+						</section>
+					</div>
+					
+					<!-- 军事 -->
+
+					<div class="swiper-slide swiper-no-swiping"  id="refreshContainer_9">
+						<section class="aui-middle-dome" id="tuijian_9">
+						
+						</section>
+					</div>
+					
+					<!-- 教育 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_10">
+						<section class="aui-middle-dome" id="tuijian_10">
+						
+						</section>
+					</div>
+					
+					<!-- 科技 -->
+					<div class="swiper-slide swiper-no-swiping" id="refreshContainer_11">
+						<section class="aui-middle-dome" id="tuijian_11">
+				
+						</section>	
+					</div>
+
+				</div>
+			</div>
+		<!-- 内容信息 end -->
+	</div>
+
+
+	<footer class="aui-bar aui-bar-tab" id="footer" style="border-top:1px solid #ddd; background:#efefef">
+		<div class="aui-bar-tab-item aui-active" tapmode>
+			<a href="index.html">
+				<i class="aui-iconfont aui-icon-home"></i>
+				<div class="aui-bar-tab-label">首页</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="focus.html">
+				<i class="aui-iconfont aui-icon-like"></i>
+				<div class="aui-bar-tab-label">要闻</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="video.html">
+				<i class="aui-iconfont aui-icon-video"></i>
+				<div class="aui-bar-tab-label">视频</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="my.html">
+				<i class="aui-iconfont aui-icon-my"></i>
+				<div class="aui-bar-tab-label">我的</div>
+			</a>
+		</div>
+	</footer>
+
+	
+<script type="text/javascript">
+
+
+$.post("/notice/getnotice",function(rs){
+	$("#notice").html(rs[0].notice)	;
+	console.log(rs);
+		
+	// alert(rs.nid);
+	
+})
+
+if(!window.sessionStorage.getItem('storge')){
+  
+    mui("#popover").popover('toggle',document.getElementById("div"));
+    window.sessionStorage.setItem('storge','true')
+  
+    }
+
+
+
+
+$(function(){
+
+	shownew(1);
+	
+	
+	
+	
+	
+});
+function shownew(date){
+
+	type(date);
+
+
+
+}
+function type(rs) {
+	//alert(rs);
+	
+	if(rs==1){
+		
+	}
+	var containerid="#refreshContainer_"+rs;
+	
+	mui(containerid).pullRefresh({
+	    
+	    up: {
+	    	  height:50,//可选.默认50.触发上拉加载拖动距离
+		      auto:true,//可选,默认false.自动上拉加载一次
+		      contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+		      contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+		      callback :pullfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据
+	    },
+	})
+
+	
+		
+		//记录循环次数
+		var j=0;
+		
+		var size=null;
+		function pullfresh() {
+		
+
+		//	console.log(rs);
+			$.post("/new/findnew",{"type":rs},function(date){
+				
+				//console.log(date);
+				//分页 获取总页数
+				size=Math.ceil(date.length/5);
+				
+				var jj=5+j*5>date.length?  date.length:5+j*5;
+					
+				for(i=0+j*5;i<jj;i++){
+					
+					var text=["0","推荐","国内","国际","政治","财经","体育","娱乐","军事","教育","科技","nba"];
+					var content= '<section id="select_'+rs+'" class="aui-middle-dome">'+
+						'<a href="news-page.html?nid='+date[i].nid+'" data-action-label="click-a" data-tag="news" class="aui-middle-dome-a">'+
+					'<div class="aui-middle-dome-title">'+
+					
+						'<h3>'+date[i].title+'</h3>'+
+						'<div class="aui-middle-dome-text">'+
+							'<div class="clearfix">'+
+							'<span class="aui-top box-line">'+text[rs]+'</span>'+
+							'<span class="aui-title" style="color: #3c3c3c">'+date[i].src+'</span>'+
+							'<i class="aui-iconfont aui-icon-display">670</i>'+
+							'</div>'+
+							'</div>'+
+							'</div>'+
+							'<div class="aui-middle-dome-img">'+
+							'<img src="'+date[i].pic+'" alt="">'+
+							'</div>'+
+							'</a>'+
+							'</section>';
+				//	var table = document.body.querySelector('#tuijian');
+				//var myElement = document.getElementById("tuijian").innerHTM(content);
+					//table.insertBefore(content, table.firstChild);
+							$("#tuijian_"+rs).before(content);
+							
+					
+								
+								
+								
+				}
+				
+				//推荐内容
+				if(rs==1&&j==0){
+					$.post("/new/tuijian",function(rs){
+						console.log(rs);
+						if(rs!=null){
+							$.each(rs,function(i,val){
+								var content= '<section class="aui-middle-dome">'+
+								'<a href="news-page.html?nid='+val.news.nid+'" data-action-label="click-a" data-tag="news" class="aui-middle-dome-a">'+
+							'<div class="aui-middle-dome-title">'+
+							
+								'<h3>'+val.news.title+'</h3>'+
+								'<div class="aui-middle-dome-text">'+
+									'<div class="clearfix">'+
+									'<span class="aui-top box-line">智推</span>'+
+									'<span class="aui-title" style="color: #3c3c3c">'+val.news.src+'</span>'+
+									'<i class="aui-iconfont aui-icon-display">670</i>'+
+									'</div>'+
+									'</div>'+
+									'</div>'+
+									'<div class="aui-middle-dome-img">'+
+									'<img src="'+val.news.pic+'" alt="">'+
+									'</div>'+
+									'</a>'+
+									'</section>';
+
+									$("#select_1").before(content);
+							
+							});
+							
+					}		
+					});
+				}
+				j++
+				
+		
+			},"json");
+			//mui('#pullup-container').pullRefresh().disablePullupToRefresh();
+			
+		
+			if(j==(size-1)){
+				this.endPullupToRefresh(true);
+			}else{
+				this.endPullupToRefresh(false);
+			}
+		
+			
+		} 
+	
+	
+}
+
+
+
+
+
+//解决上拉记载后a标签失效
+mui('body').on('tap','a',
+        function(){ 
+        document.location.href=this.href;
+});
+
+</script>
+
+	<script type="text/javascript">
+	    $(function() {
+	        function setCurrentSlide(ele, index) {
+	            $(".swiper1 .swiper-slide").removeClass("selected");
+	            ele.addClass("selected");
+	        }
+
+	        var swiper1 = new Swiper('.swiper1',{
+
+	            slidesPerView: 5.5,
+	            paginationClickable: true,
+	            spaceBetween: 1,
+	            freeMode: true,
+	            loop: false,
+	            onTab: function(swiper) {
+	                var n = swiper1.clickedIndex;
+	            }
+	        });
+	        swiper1.slides.each(function(index, val) {
+	            var ele = $(this);
+	            ele.on("click", function() {
+	                setCurrentSlide(ele, index);
+	                swiper2.slideTo(index, 500, false);
+	            });
+	        });
+
+	        var swiper2 = new Swiper('.swiper2',{
+	            direction: 'horizontal',
+	            loop: false,
+	            //					effect : 'fade',//淡入
+	            //effect : 'cube',//方块
+	            //effect : 'coverflow',//3D流
+	            //					effect : 'flip',//3D翻转
+	            autoHeight: true,
+	            onSlideChangeEnd: function(swiper) {
+	                //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+	                var n = swiper.activeIndex;
+	                setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+	                swiper1.slideTo(n, 500, false);
+	            }
+	        });
+	    });
+	</script>
+</body>
+</html>

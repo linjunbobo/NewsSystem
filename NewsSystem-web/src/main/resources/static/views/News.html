@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/themes/bootstrap/easyui.css" />
+<link rel="stylesheet" href="/css/themes/icon.css" />
+
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+
+<script type="text/javascript" src="/js/locale/easyui-lang-zh_CN.js"></script>
+
+<script type="text/javascript" src="/themes/js/jquery.min.js"></script> 
+
+<title>Insert title here</title>
+</head>
+<body>
+
+	<span id="text"></span>
+
+</body>
+
+
+<script type="text/javascript">
+	 $.post("/manager/news",{"num":40,"start":200},function(data){
+	var news=data.result.result.list;
+	
+	 
+	 $.each(news,function(i,val){ //两个参数，第一个参数表示遍历的数组的下标，第二个参数表示下标对应的值
+		 var json ={ "title":val.title,
+			 		"pic":val.pic,
+			 		"src":val.src,
+			 		"pic":val.pic,
+			 		"content":val.content,
+			 		"time":val.time		 		
+			 
+	 	}
+		 $.post("/manager/addnews",json,function(date){
+			 $("#text").html(date);
+		
+			 
+		 },"json");
+		console.log(val.content);
+	 }); 
+	$("body").append(news);
+
+	console.log(news);
+	}); 
+</script>
+</html>

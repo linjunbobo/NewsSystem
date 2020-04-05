@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/themes/bootstrap/easyui.css" />
+		<link rel="stylesheet" href="/css/themes/icon.css" />
+		<!--描述：easyui基础包-->
+		<script type="text/javascript" src="/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+		
+		<!--描述：中文包-->
+		<script type="text/javascript" src="/js/locale/easyui-lang-zh_CN.js" ></script>
+		<script type="text/javascript" src="/js/datagrid-detailview.js" ></script>
+</head>
+<body>
+
+<table id="dd"></table>
+<table id="ddv"></table>
+<div id="sh" style="top: 180px;">
+<!--对话框  -->
+<p>新闻审核<p>
+<form id="checkform" method="post">
+<span>审核：</span>
+<select name="state" style="margin: 0px; padding-top: 0px;  padding-bottom: 0px; height: 28px; line-height: 28px; width: 154px;">
+<option value="1">审核通过</option>
+<option value="2">审核不通过</option>
+</select><br>
+<span>原因：</span>
+<input class="easyui-textbox"  name="reason" type="text" >
+<input  id="nid" name="nid" type="hidden" >
+</form>
+
+</div>
+</body>
+<script type="text/javascript">
+var st = new Array();
+st.push("未审核");
+st.push("通过审核");
+st.push("审核不通过");
+$(function () {
+	$("#dd").datagrid({
+		url:"/new/findnewall?state=0",
+		method: 'post',
+		fitColums: true,
+		columns:[[
+			{'field': 'nid','title':'编号 ' ,width: 50},
+			{'field': 'title','title':'题目 ',width: 200},
+			{'field': 'src','title':'来源 ',width: 70},
+			{'field': 'time','title':'时间 ',width: 200},
+			{'field': 'autor','title':'作者 ',width: 50,formatter: function(value, rowData, rowIndex){
+				var name;
+				$.post("/new/findautorbyid",{"aid":value},function(date){
+					name=date.name;
+					$("#autor" + rowIndex).html(date.aname);
+						
+				});
+						
+				return "<span id='autor" + rowIndex + "'></span>";
+				
+			}},
+			{'field': 'pic','title':'图片 ',width: '200px',formatter: function(value) {
+				return "<img width='200' height='112' src='"+value+"'>";
+			}},
+			/*formatter 改变表单原来的值  */
+			{'field': 'type','title':'类型 ',width: 100,formatter: function(value, rowData, rowIndex){
+				var name;
+				$.post("/new/findtypebyid",{"type":value},function(date){
+					name=date.category;
+					$("#creater_" + rowIndex).html(date.category);
+					console.log(date.category);			
+				});
+						
+				return "<span id='creater_" + rowIndex + "'></span>";
+				
+			}},
+			{'field': '-2','title':'查看 ',width:100,formatter: function(value,rowData,rowIndex) {
+			
+				
+				return "<a href='/views/new/news-page.html?nid="+rowData.nid+"'>预览</a>";
+				
+			}},
+		
+			{'field': 'state','title':'审核状态 ',width: '80px',formatter: function(value){return st[value]}},
+		
+			{'field': '-1','title':'审核 ',width:150,formatter: function(value,rowData,rowIndex) {
+			
+				
+				return "<a id='checkastate" + rowIndex + "' href='javascript:show("+rowData.nid+ ")'>审核</a>";
+			}},
+			
+			{'field': 'reason','title':'审核理由 ',width: '80px'},
+			{'field': 'usernameid','title':'审核人 ',width: '80px'}
+		]],
+		
+	
+		//表格下添加子表格
+		view: detailview,
+		detailFormatter: function(index, row) {
+			return "<table id='ddv_" + index + "'></table>";
+		},
+		onExpandRow: function(index, row) {
+			
+			
+			$('#ddv_' + index).datagrid({
+				url: '/autor/findautor?aid=' + row.autor,
+				columns: [[
+					{field: 'aid', title: '编号', width: 100},
+					{field: 'abirthday', title: '生日', width: 100},
+					{field: 'aname', title: '作者名称', width: 100},
+					{field: 'aaddress', title: '地址', width: 100}
+					
+				]],
+			
+		})
+			
+
+		},
+
+		pagination:true,
+		pageSize:5,
+		pageList: [5,20,30,40,50],
+		singleSelect:true
+		});
+		
+	
+
+})
+
+Date.prototype.format = function(millis) {
+	this.setTime(millis);
+	var yy = this.getFullYear();
+	var mm = this.getMonth() + 1;
+	var dd = this.getDate();
+	var dateStr = yy + "年" + mm + "月" + dd + "日";
+	return dateStr;
+}
+
+//给隐藏域加上新闻id  打开审核对话框
+function  show(nid) {
+
+	$("#nid").val(nid);
+	$("#sh").dialog('open');
+	
+}
+
+$("#sh").dialog({
+	title: "审核	",
+	width: 300,
+	height: 200,
+	closed: true,
+	modal: true,
+	buttons: [
+		{
+			
+			text: "保存",
+			handler: function() {
+		
+				var date=$("#checkform").serialize();
+				
+				$.post("/new/checknew",date,function(rs){
+					
+					if(rs.status=="success"){
+						$("#dd").datagrid("reload");
+						// 重置对话框的表单
+						$("#checkform").form("clear");
+					
+						alert("审核成功");
+						
+					}
+					// 关闭对话框
+					$("#sh").dialog("close"); 	
+				})
+				
+				}
+			
+		},{
+			
+			text: "取消",
+			handler: function() {
+				// 重置对话框的表单
+				$("#checkform").form("clear");
+				// 关闭对话框
+				$("#sh").dialog("close"); 			}
+		}       
+	]
+});
+</script>
+</html>

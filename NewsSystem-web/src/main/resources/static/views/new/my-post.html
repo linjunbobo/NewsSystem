@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+	
+		<style type="text/css">
+		.swiper2 {
+			width: 100%;
+		}
+
+		.swiper2 .swiper-slide {
+			height: calc(100vh - 50px);
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+		}</style>
+</head>
+<body>
+	<header class="aui-bar aui-bar-nav aui-bar-light">
+		<a href="javascript:" onclick="history.back(); " class="aui-pull-left aui-btn" >
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="aui-title aui-font-size-14" style="color:#fff">我的评论</div>
+	</header>
+	<div class="aui-content aui-margin-b-15" style="padding-top:44px;">
+		<ul class="aui-list aui-media-list" id="Commentshow">
+			<li class="aui-new-header">
+				共评论 <em id="commenrcount" style="color:#eb413d;">15</em> 则新闻
+			</li>
+			
+		
+		</ul>
+	</div>
+<footer class="aui-bar aui-bar-tab" id="footer" style="border-top:1px solid #ddd; background:#efefef">
+		<div class="aui-bar-tab-item " tapmode>
+			<a href="index.html">
+				<i class="aui-iconfont aui-icon-home"></i>
+				<div style="color: #666;" class="aui-bar-tab-label">首页</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="focus.html">
+				<i class="aui-iconfont aui-icon-like"></i>
+				<div class="aui-bar-tab-label">要闻</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="video.html">
+				<i class="aui-iconfont aui-icon-video"></i>
+				<div class="aui-bar-tab-label">视频</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item aui-active" tapmode>
+			<a href="my.html">
+				<i class="aui-iconfont aui-icon-my"></i>
+				<div class="aui-bar-tab-label">我的</div>
+			</a>
+		</div>
+	</footer>
+</body>
+<script type="text/javascript">
+$.post("/my/getcomment",function(rs){
+	//console.log(rs);
+	$("#commenrcount").text(rs.length);
+	console.log(rs);
+	
+	$.each(rs,function(i,val){
+		var title=val.news.title;
+		var time =val.time;
+		var ccontent =val.ccontent;
+		var nid=val.news.nid;
+		$("#Commentshow").append
+		('<a href="/views/new/news-page.html?nid='+nid+'"><li class="aui-list-item aui-middle-dome-a">'+
+		'<div class="aui-list-item-inner aui-font-size-14">'+title+'</div>'+
+	    '<div>回复内容：'+ccontent+'</div></li><div style="text-align:right;		text-size-adjust:none;	font-size:10px;	color:rgb(0, 4, 8);">'+
+
+		'时间：'+time+'</div>	<div class="aui-he"></div>')	
+			
+				
+			
+	
+		
+	})
+	
+});
+
+var swiper2 = new Swiper('.swiper2',{
+    direction: 'horizontal',
+    loop: false,
+    //					effect : 'fade',//淡入
+    //effect : 'cube',//方块
+    //effect : 'coverflow',//3D流
+    //					effect : 'flip',//3D翻转
+    autoHeight: true,
+    onSlideChangeEnd: function(swiper) {
+        //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+        var n = swiper.activeIndex;
+        setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+        swiper1.slideTo(n, 500, false);
+    }
+});
+</script>
+</html>

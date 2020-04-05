@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/themes/bootstrap/easyui.css" />
+		<link rel="stylesheet" href="/css/themes/icon.css" />
+		<link rel="stylesheet" href="/css/manager/layui.css" />
+		<!--描述：easyui基础包-->
+		<script type="text/javascript" src="/js/jquery.min.js"></script>
+	
+		<script type="text/javascript" src="/js/layui/layui.all.js"></script>
+			<script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+
+		<!--描述：中文包-->
+		<script type="text/javascript" src="/js/locale/easyui-lang-zh_CN.js" ></script>
+</head>
+<body>			
+	
+	<!-- 展示表单 -->
+	<span>账号查询：</span>	<input type="text"  class="easyui-textbox"  id="account" />
+	<span>姓名查询：</span><input type="text" class="easyui-textbox"  id="Mname" />
+	<input type="submit" class="layui-btn layui-btn-primary layui-btn-sm"
+		onclick="search()">
+	<table id="dd"></table>
+	
+	<div id="sh" style="top: 180px;">
+<!--对话框  -->
+<p>评论审核<p>
+<form id="checkform" method="post">
+<span>审核：</span>
+<select name="type" style="margin: 0px; padding-top: 0px;  padding-bottom: 0px; height: 28px; line-height: 28px; width: 154px;">
+<option value="1">审核通过</option>
+<option value="2">审核不通过</option>
+</select><br>
+<span>原因：</span>
+<input class="easyui-textbox"  name="reason" type="text" >
+<input  id="cid" name="cid" type="hidden" >
+</form>
+
+</div>
+	</div>
+	
+	
+	<script type="text/javascript">
+	var url;
+	var st = new Array();
+	st.push("未审核");
+	st.push("审核通过");
+	st.push("审核未通过");
+	var sex = new Array();
+	sex.push("男");
+	sex.push("女");
+	
+	
+		//模糊搜索
+	function search() {
+		var account=$("#account").textbox('getValue');
+		var Mname=$("#Mname").textbox('getValue');
+		$("#dd").datagrid('load',{
+			'mname': Mname,
+			'account':account
+			
+		})
+		
+	}
+	//管理员内容展示
+	$(function () {
+		$("#dd").datagrid({
+			url:"/new/findAllcomment",
+			method: 'post',
+			fitColums: true,
+			columns:[[
+				{'field': 'cid','title':'编号 ' ,width: 50},
+				{'field': 'ccontent','title':'评论内容 ',width: 200},
+				{'field': 'time','title':'时间 ',width: 200},
+				{'field': 'nid','title':'新闻 ',width: 200,formatter: function(value,rowData, rowIndex) {
+					$.post("/new/findnew",{"nid":value},function(rs){
+				
+					$("#title" + rowIndex).html(rs[0].title);
+					})
+			 return "<span id='title" + rowIndex + "'></span>"; 
+				}},
+				{'field': 'mid','title':'评论人 ',width: 180,formatter: function(value,rowData, rowIndex) {
+					$.post("/manager/finManagerBymid",{"mid":value},function(rs){
+						
+						$("#cmanager" + rowIndex).html(rs[0].mname);})
+						 return "<span id='cmanager" + rowIndex + "'></span>"; 
+				}},
+				{'field': 'zan_count','title':'点赞数 ',width: '50px'},
+				{'field': 'type','title':'审核状态 ',width: '60px',formatter: function(value) {
+					return st[value] ;
+				}},
+				{'field': '-1','title':'审核 ',width:150,formatter: function(value,rowData,rowIndex) {
+					
+			
+					
+					return "<a id='checkastate" + rowIndex + "' href='javascript:show("+rowData.cid+ ")'>审核</a>";
+				}},
+				{'field': 'checkid','title':'审核人 ',width: '200px'},
+				{'field': 'reason','title':'审核原因 ',width: '200px'}
+			]],
+			pagination:true,
+			pageSize:10,
+			pageList: [10,20,50,100],
+			singleSelect:true,
+			toolbar:	
+			[{
+				iconCls: 'icon-add',
+				text:'添加',
+				handler: function(){ 
+				
+				}
+			},'-',{
+				iconCls: 'icon-edit',
+				text:'修改',
+				handler: function(){var rowDate=$("#dd").datagrid("getSelected");if(rowDate==null){
+					$.messager.alert("提示","请选择要需要改的记录");
+					return;	}
+
+
+					
+					}
+			},'-',{
+				iconCls: 'icon-remove',
+				text:'删除 ',
+				handler: function(){var rowDate=$("#dd").datagrid("getSelected");if(rowDate==null){
+				$.messager.alert("提示","请选择要需要改的记录");
+					return;	}
+				
+	
+				}
+			}]
+		})
+		
+	});
+	
+	$("#sh").dialog({
+		title: "审核	",
+		width: 300,
+		height: 200,
+		closed: true,
+		modal: true,
+		buttons: [
+			{
+				
+				text: "保存",
+				handler: function() {
+			
+					var date=$("#checkform").serialize();
+					
+					$.post("/new/checkcomment",date,function(rs){
+						
+						if(rs.status=="success"){
+							$("#dd").datagrid("reload");
+							// 重置对话框的表单
+							$("#checkform").form("clear");
+						
+							alert("审核成功");
+							
+						}
+						// 关闭对话框
+						$("#sh").dialog("close"); 	
+					})
+					
+					}
+				
+			},{
+				
+				text: "取消",
+				handler: function() {
+					// 重置对话框的表单
+					$("#checkform").form("clear");
+					// 关闭对话框
+					$("#sh").dialog("close"); 			}
+			}       
+		]
+	});
+	function  show(cid) {
+
+		$("#cid").val(cid);
+		
+		
+		$("#sh").dialog('open');
+		
+	}	
+	
+	</script>
+</body>
+</html>

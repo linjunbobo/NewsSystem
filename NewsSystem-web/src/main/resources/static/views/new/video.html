@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	<meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/swiper-3.2.7.min.css"/>
+	<link rel="stylesheet" href="/themes/css/home.css"/>
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+	
+	<link href="/css/video-js.min.css" rel="stylesheet">
+	  <script src="/js/video.min.js"></script> 
+
+	<style>
+		body{
+			margin:0;
+			padding:0;
+		}
+		.container {
+			width: 100%;
+		}
+
+		.swiper1 {
+			width: 100%;
+			background: #efefef;
+		}
+
+		.swiper1 .selected {
+			color: #ec5566;
+		}
+
+		.swiper1 .swiper-slide {
+			text-align: center;
+			font-size: 14px;
+			height: 40px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.swiper2 {
+			width: 100%;
+		}
+
+		.swiper2 .swiper-slide {
+			height: calc(100vh - 50px);
+			color: #fff;
+			text-align: center;
+			box-sizing: border-box !important;
+			overflow-x: hidden !important;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+
+		<!-- 头部信息 begin -->
+			<div class="aui-header">
+				<div class="aui-header-box clearfix">
+					<div class="aui-header-logo">
+						<a href="index.html">
+							<img src="/themes/img/logo/logo-vo.png" alt="">
+						</a>
+					</div>
+					<div class="aui-header-sou">
+						<!--<a href="search.html">-->
+							<!--<span><i class="aui-iconfont aui-icon-search"></i></span>-->
+						<!--</a>-->
+					</div>
+				</div>
+				<div class="swiper-container swiper1 b-line">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide selected">推荐</div>
+						<div class="swiper-slide">搞笑</div>
+						<div class="swiper-slide">娱乐</div>
+						<div class="swiper-slide">美女</div>
+						<div class="swiper-slide">八卦</div>
+						<div class="swiper-slide">音乐</div>
+					</div>
+				</div>
+			</div>
+		<!-- 头部信息 end -->
+
+		<!-- 内容信息 begin -->
+		<!--推荐  -->
+			<div class="swiper-container swiper2" style="padding-top:85px; padding-bottom:49px;">
+				<div class="swiper-wrapper">
+				<!--推荐  -->
+					<div id="Video" class="swiper-slide swiper-no-swiping">
+					
+	
+					</div>
+					
+					
+					<!-- 搞笑 -->
+					<div class="swiper-slide swiper-no-swiping">
+					
+					</div>
+					<!-- 美女 -->
+					<div class="swiper-slide swiper-no-swiping">
+						
+					</div>
+					
+					<!-- 八卦 -->
+					<div class="swiper-slide swiper-no-swiping">
+						
+					</div>
+					
+				
+					<div class="swiper-slide swiper-no-swiping">
+					
+					</div>
+					
+						<!--音乐  -->
+					<div class="swiper-slide swiper-no-swiping">
+					>
+					</div>
+				</div>
+			</div>
+		<!-- 内容信息 end -->
+	</div>
+
+
+	<footer class="aui-bar aui-bar-tab" id="footer" style="border-top:1px solid #ddd; background:#efefef">
+		<div class="aui-bar-tab-item " tapmode>
+			<a href="index.html">
+				<i class="aui-iconfont aui-icon-home"></i>
+				<div class="aui-bar-tab-label">首页</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="focus.html">
+				<i class="aui-iconfont aui-icon-like"></i>
+				<div class="aui-bar-tab-label">要闻</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item aui-active" tapmode>
+			<a href="video.html">
+				<i class="aui-iconfont aui-icon-video"></i>
+				<div class="aui-bar-tab-label">视频</div>
+			</a>
+		</div>
+		<div class="aui-bar-tab-item" tapmode>
+			<a href="my.html">
+				<i class="aui-iconfont aui-icon-my"></i>
+				<div class="aui-bar-tab-label">我的</div>
+			</a>
+		</div>
+	</footer>
+<script type="text/javascript">
+
+$.post("/video/getVideo",function(rs){
+	console.log(rs);
+	
+
+	
+	//计算时间差
+//	var timedifferen=diffTime(date,new Date());
+	
+	
+	
+
+
+		
+	
+	$.each(rs,function(i,val){
+		
+		var Video='	<section  class="aui-middle-dome">'+
+		'<h3  class="aui-title-h3"  style= "margin-top:15px">'+val.title+'</h3>'+
+		'	<div class="aui-title-video">'+
+		'<video controls=""  poster="" name="media" width="100%">'+
+		' <source src="'+val.src+'" type="video/mp4">'+
+		'	</video>	</span></div>'+
+		'<div class="aui-title-text clearfix">'+
+		'<span class="aui-ban">'+val.manager.mname+'</span>'+
+		'<span class="aui-zan"><i></i>'+val.history+'</span>'+
+		'<span class="aui-lun"><i></i>'+val.zan_count+'</span>	</div></section>';
+		$("#Video").append(Video);
+		
+	});
+	
+});
+
+function diffTime(startDate,endDate) {
+    var diff=endDate.getTime() - startDate;//.getTime();//时间差的毫秒数
+
+    //计算出相差天数
+    var days=Math.floor(diff/(24*3600*1000));
+
+    //计算出小时数
+    var leave1=diff%(24*3600*1000);    //计算天数后剩余的毫秒数
+    var hours=Math.floor(leave1/(3600*1000));
+    //计算相差分钟数
+    var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+    var minutes=Math.floor(leave2/(60*1000));
+
+    //计算相差秒数
+    var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+    var seconds=Math.round(leave3/1000);
+
+    var returnStr = seconds + "秒前";
+    if(minutes>0) {
+        returnStr = minutes + "分钟前";//+ returnStr;
+    }
+    if(hours>0) {
+        returnStr = hours + "小时前";// + returnStr;
+    }
+    if(days>0) {
+        returnStr = days + "天前" ;//+ returnStr;
+    }
+    return returnStr;
+}
+</script>
+
+	<script type="text/javascript">
+	    $(function() {
+	        function setCurrentSlide(ele, index) {
+	            $(".swiper1 .swiper-slide").removeClass("selected");
+	            ele.addClass("selected");
+	        }
+
+	        var swiper1 = new Swiper('.swiper1',{
+
+	            slidesPerView: 5.5,
+	            paginationClickable: true,
+	            spaceBetween: 1,
+	            freeMode: true,
+	            loop: false,
+	            onTab: function(swiper) {
+	                var n = swiper1.clickedIndex;
+	            }
+	        });
+	        swiper1.slides.each(function(index, val) {
+	            var ele = $(this);
+	            ele.on("click", function() {
+	                setCurrentSlide(ele, index);
+	                swiper2.slideTo(index, 500, false);
+	            });
+	        });
+
+	        var swiper2 = new Swiper('.swiper2',{
+	            direction: 'horizontal',
+	            loop: false,
+	            //					effect : 'fade',//淡入
+	            //effect : 'cube',//方块
+	            //effect : 'coverflow',//3D流
+	            //					effect : 'flip',//3D翻转
+	            autoHeight: true,
+	            onSlideChangeEnd: function(swiper) {
+	                //回调函数，swiper从一个slide过渡到另一个slide结束时执行。
+	                var n = swiper.activeIndex;
+	                setCurrentSlide($(".swiper1 .swiper-slide").eq(n), n);
+	                swiper1.slideTo(n, 500, false);
+	            }
+	        });
+	    });
+	</script>
+</body>
+</html>

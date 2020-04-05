@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" href="/css/themes/bootstrap/easyui.css" />
+		<link rel="stylesheet" href="/css/themes/icon.css" />
+		<!--描述：easyui基础包-->
+		<script type="text/javascript" src="/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/jquery.easyui.min.js"></script>
+		<!--描述：中文包-->
+		<script type="text/javascript" src="/js/locale/easyui-lang-zh_CN.js" ></script>
+</head>
+<body>			
+	
+	<!-- 展示表单 -->
+	<span>账号查询：</span>	<input type="text"  class="easyui-textbox"  id="account" />
+	<span>姓名查询：</span><input type="text" class="easyui-textbox"  id="Mname" />
+	 <input type="submit" class="easyui-validatebox" onclick="search()">
+	<table id="dd"></table>
+	
+	<div id="duihua">
+	<form id="addManager">
+	<div style="  left: 31%;top: 20%;position:absolute;">
+	<input type="hidden"  id="mid" name="mid" data-options="required:true"><br/>
+	 账号：<input type="text" class="easyui-textbox" id="Eaaccount" name="account" data-options="required:true"><br/>
+	 密码：<input type="text" class="easyui-textbox" id="Epassword" name="password"  data-options="required:true"><br/>
+	  姓名：<input type="text" class="easyui-textbox" id="Ename" name="mname"  data-options="required:true"><br/>
+	 职位：<select name="type" id="type" style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px; width: 154px;">
+	  
+		<option value="0">普通用户</option>
+		<option value="1">管理员</option>
+		
+</select><br/>
+	  性别：<select name="sex" id="sex" style="margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px; width: 154px;">
+	  
+		<option value="0">男</option>
+		<option value="1">女</option>
+</select><br/>
+	  邮箱：<input type="text"class="easyui-textbox" id="email" name="email" data-options="required:true"><br/>
+	生日：<input type="text" class="easyui-datetimebox" id="birthday"   data-options="required:true,showSeconds:false" value="3/4/2010 2:3" style="width:150px"><br/>
+	
+	</form>
+	</div>
+	</div>
+	
+	
+	<script type="text/javascript">
+	var url;
+	var st = new Array();
+	st.push("普通用户");
+	st.push("管理员");
+	st.push("系统管理员");
+	var sex = new Array();
+	sex.push("男");
+	sex.push("女");
+	
+	
+		//模糊搜索
+	function search() {
+		var account=$("#account").textbox('getValue');
+		var Mname=$("#Mname").textbox('getValue');
+		$("#dd").datagrid('load',{
+			'mname': Mname,
+			'account':account
+			
+		})
+		
+	}
+	//管理员内容展示
+	$(function () {
+		$("#dd").datagrid({
+			url:"/manager/findManager",
+			method: 'post',
+			fitColums: true,
+			columns:[[
+				{'field': 'mid','title':'编号 ' ,width: 50},
+				{'field': 'account','title':'账号 ',width: 200},
+				{'field': 'password','title':'密码 ',width: 200},
+				{'field': 'mname','title':'姓名 ',width: 180},
+				{'field': 'type','title':'职责 ',width: '60px',formatter: function(value) {
+					return st[value] ;
+				}},
+				{'field': 'sex','title':'性别 ',width: '50px',formatter: function(value) {
+					return sex[value] ;}},
+				{'field': 'email','title':'邮箱 ',width: '200px'},
+				{'field': 'birthday','title':'生日 ',width: '200px'}
+			]],
+			pagination:true,
+			pageSize:10,
+			pageList: [10,20,50,100],
+			singleSelect:true,
+			toolbar:	
+			[{
+				iconCls: 'icon-add',
+				text:'添加',
+				handler: function(){ 
+				$("#duihua").dialog("open");
+				url="/manager/addManager";
+				}
+			},'-',{
+				iconCls: 'icon-edit',
+				text:'修改',
+				handler: function(){var rowDate=$("#dd").datagrid("getSelected");if(rowDate==null){
+					$.messager.alert("提示","请选择要需要改的记录");
+					return;	}
+
+					url="/manager/updateManager";				//获取数据
+					var mid=rowDate.mid;
+					var account=rowDate.account;
+					var password=rowDate.password;
+					
+					var mname=rowDate.mname;
+					//var type=st[rowDate.type];
+					//var sex1=sex[rowDate.sex];
+					
+					var email=rowDate.email;
+				
+					var birthday=rowDate.birthday;
+					
+					//填充数据到对话框
+					$("#mid").val(mid);
+					
+					$("#Eaaccount").textbox('setValue',account);
+					$("#Epassword").textbox('setValue',password);
+					$("#Ename").textbox('setValue',mname);
+					
+					//$("#type").textbox('setValue',type);
+					//$("#sex").textbox('setValue',sex1);
+					$("#email").textbox('setValue',email);
+					$("#birthday").textbox('setValue',birthday);
+					
+					$("#duihua").dialog("open");
+					
+					}
+			},'-',{
+				iconCls: 'icon-remove',
+				text:'删除 ',
+				handler: function(){var rowDate=$("#dd").datagrid("getSelected");if(rowDate==null){
+				$.messager.alert("提示","请选择要需要改的记录");
+					return;	}
+				
+				$.messager.confirm('警告', '确认删除吗？', function(b) {
+					if (b) {
+						var mid=rowDate.mid;
+						$.post("/manager/removeManager", "mid=" + mid, function(rt) {
+							if (rt.status == "success") {
+								// 刷新表格
+								$("#dd").datagrid("reload");
+							}
+							$.messager.alert('提示', rt.msg);
+						}, "json");
+					}
+				});
+				}
+			}]
+		})
+		
+	});
+	//对话框
+	$("#duihua").dialog({
+		title:'管理员信息',
+		closed:true,
+		width:500,
+		height:400,
+		modal:true, //对话框遮挡背景
+		buttons: [{
+			
+			'text': '保存', // 按钮文本
+			handler: function() { // 按钮事件
+				//判断表单是否正确输入
+				var b=$("#addManager").form("validate");
+		
+			if(b){	
+			//验证表单
+			var date=$("#addManager").serialize();
+			
+		
+			
+			$.post(url,date,function(rs){
+				if(rs.status=="success"){
+					
+					//刷新表格
+					$("#dd").datagrid("load");
+					//关闭对话框
+					$("#duihua").dialog('close');
+					//清空表单
+					$("#addManager").form("clear");
+				}else{
+					$.messager.alert('提示',rs.msg);
+				}
+				
+			},"json");
+			}
+		
+			
+			}
+			},{
+	
+			text:'取消',
+			handler : function(){
+				$("#duihua").dialog('close');
+				
+			}
+			
+		}
+		]
+		
+	});
+	
+	
+	
+	</script>
+</body>
+</html>

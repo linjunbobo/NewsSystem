@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta charset="UTF-8">
+	<title>每日一点 - MRYD.com</title>
+	 <meta name="viewport" content="width=100%; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/> 
+	<script type="text/javascript" src="/themes/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/themes/js/swiper-3.4.0.jquery.min.js"></script>
+	<link href="/favicon.ico" type="image/x-icon" rel="icon">
+	<link rel="stylesheet" href="/themes/css/swiper-3.2.7.min.css"/>
+	<link rel="stylesheet" href="/themes/css/home.css"/> 
+	<link rel="stylesheet" href="/themes/css/aui.css"/>
+	<!-- <link rel="stylesheet" href="/themes/css/font-awesome.min.css"/> -->
+
+    <script src="/js/getUrlParam.js"></script> 
+      <script src="/js/aui-dialog.js"></script> 
+
+    	<style>
+		#addcomment {
+			border: 5px solid white;
+			background-color: #eee;
+			height :4rem
+			
+			
+		}
+		</style>
+</head>
+<body>
+
+	<header class="aui-bar aui-bar-nav aui-bar-light">
+		<a href="javascript:" onclick="history.back(); " class="aui-pull-left aui-btn" >
+			<span class="aui-iconfont aui-icon-left">  </span>
+		</a>
+		<div class="aui-title">新闻列表</div>
+		<a class="aui-pull-right aui-btn ">
+			<span class="aui-iconfont aui-icon-more">  </span>
+		</a>
+	</header>
+
+	<div class="aui-main">
+		<article class="article padding-side">
+			<div>
+				<h1 class="article-title" id="title"></h1>
+			</div>
+			<div id="content"class="article-content">
+			
+			</div>
+		</article>
+	</div>
+	
+
+	<div class="aui-card-list-content">
+		<div class="aui-bg-like" style="cursor:pointer " onclick="addcollect()" >
+		<img id="colletionimg" class="" style="display:inline-block;width: 20px;height: 20px; vertical-align: middle;" src="/themes/img/icon/like-1.png" >
+		</img>
+		<span>收藏</span>
+		</div>
+		<div class="aui-share-icon clearfix">
+			<div class="aui-share-line b-line clearfix">
+				<h2>分享到</h2>
+			</div>
+			<ul class="clearfix" style="padding-top:15px; padding-bottom:10px;">
+				<li><i class="aui-iconfont aui-icon-wechat"></i></li>
+				<li><i class="aui-iconfont aui-icon-wechat-circle"></i></li>
+				<li><i class="aui-iconfont aui-icon-weibo" style="color:#ff6178"></i></li>
+			</ul>
+		</div>
+		<!-- 评论 -->
+		<form action="" id="form">
+		<textarea name="addcomment" id="addcomment"  placeholder="&nbsp评&nbsp论"></textarea>
+		<div  style="cursor:pointer "  class="aui-bg-like"  onclick="addcommen()" > 发表</div>
+		</form>
+		
+			<!-- <div align="center" class="aui-btn aui-btn-danger aui-btn-block aui-btn-sm">提交</div> -->
+	
+		</div>
+
+		<ul class="aui-list aui-media-list" id="comment">
+			
+		
+	
+		
+		
+		
+
+		</ul>
+	</div>
+	<div class="aui-card-list-footer aui-text-center aui-list-item-arrow">
+		查看更多跟帖
+	</div>
+	</div>
+<script type="text/javascript">
+	var nid=UrlParm.parm("nid");
+	
+	//浏览记录
+	$.post("/new/history",{"nid":nid},function(rs){
+		
+	});
+	//点赞or取消点赞
+	 function addzan(es,img){
+		console.log(es);
+		
+			//$("#colletionimg").attr("src","/themes/img/icon/like-2.png");
+		 	var state=1;
+		 	if($(img).attr("src")=="/themes/img/icon/dianzan2.png"){		 	 
+		 		state=2;
+}
+		 	var zancount=parseInt($("#zan_count_"+es.cid).text());
+			
+		
+	$.post("/new/addzan",{"state":state,
+						"cid":es.cid,
+						"zan_count":zancount,
+						"nid":nid},function(rs){
+							 //window.location.reload()
+						//	commentAjax();
+							
+							if(rs.status=="failure"){
+								dialog.alert({
+									
+								    msg:rs.msg+'！是否登录',
+								    buttons:['取消','确定']
+								},function(ret){
+								
+									if(ret.buttonIndex==2){location.href="/views/login.html?state=1";}
+								})
+							}else{
+								if($(img).attr("src")=="/themes/img/icon/dianzan2.png"){
+									//-1
+									$(img).attr("src","/themes/img/icon/dianzan1.png");
+									$("#zan_count_"+es.cid).text(zancount-1);
+								
+									state=2;
+								}else{
+									//+1
+									$(img).attr("src","/themes/img/icon/dianzan2.png");
+									$("#zan_count_"+es.cid).text(zancount+1);
+									
+									state=1;
+								} 
+							//	zancount=parseInt($("#zan_count_"+es.cid).text());
+							
+							}
+			
+		});
+	
+	
+
+			
+			} 
+	//收藏or取消收藏
+	 function addcollect(){
+		
+		var img= $("#colletionimg").attr("src");
+		
+		 $.post("/new/addcollect",{
+			 "img" : img ,
+			 "nid" : nid		 
+		 }	 ,function(rs){
+			 if(rs.status=="failure"){
+				
+					dialog.alert({
+					
+					    msg:rs.msg+'！是否登录',
+					    buttons:['取消','确定']
+					},function(ret){
+					
+						if(ret.buttonIndex==2){location.href="/views/login.html?state=1";}
+					})
+					
+				}else{
+					if(img=="/themes/img/icon/like-1.png"){
+					$("#colletionimg").attr("src","/themes/img/icon/like-2.png");
+					}else{
+						$("#colletionimg").attr("src","/themes/img/icon/like-1.png");
+					}
+					//alert($("#colletionimg").attr("src"));
+				}
+		}); 
+		
+		} 
+	 var dialog = new auiDialog({});
+	
+	//添加评论
+	function addcommen() {
+		var addcomment =$("#addcomment").val();
+		
+	if(!addcomment){
+		
+		 dialog.alert({
+             title:"请输入评论内容",
+             msg:'',
+             buttons:['确定']
+         },function(ret){
+           
+         });
+	}else {
+		var json={"nid":nid,
+				"ccontent":addcomment	};
+		$.post("/new/addcomment",json,function(rs){
+			if(rs.status=="failure"){
+		
+				dialog.alert({
+					
+				    msg:rs.msg+'！是否登录',
+				    buttons:['取消','确定']
+				},function(ret){
+					if(ret.buttonIndex==2){location.href="/views/login.html?state=1";}
+					
+				})
+			}else{
+				
+				 dialog.alert({
+	                    title:"评论成功",
+	                    msg:'审核中',
+	                    buttons:['确定']
+	                },function(ret){
+	                   
+	                });
+				//alert("发表成功,审核中");
+				
+			}
+		 
+			
+		});
+		
+		
+	}
+		
+		
+	}
+	 
+	
+	//用户是否收藏
+	$.post("/new/findcollect","nid="+nid,function(rs){
+		//alert(rs.status);
+		if(rs.status=="success"){
+			$("#colletionimg").attr("src","/themes/img/icon/like-2.png");
+		}
+	
+		
+	});
+	
+	//内容获取
+	$.post("/new/findbynid","nid="+nid,function(date){
+		$("#title").append(date.title);
+		$("#content").append(date.content);
+		
+		
+	});
+	
+	commentAjax();
+	
+	function commentAjax() {
+		//评论获取
+		$.post("/new/findcomment","nid="+nid,function(date){
+			//$("#title").append(date.title);
+			//$("#content").append(date.content);
+				
+				 $.each(date,function(i,val){ //两个参数，第一个参数表示遍历的数组的下标，第二个参数表示下标对应的值
+					var test=JSON.stringify(val);
+					 var ccontent=val.ccontent;
+					var mname=val.manager.mname;
+					var mimg=val.manager.img;
+					var cid=val.cid;
+					var zan_count= val.zan_count;
+					var time=val.time;
+					var timedifferen=diffTime(time,new Date());
+					
+					var comment= '<li class="aui-list-item aui-list-item-middle">'+
+					'<div class="aui-media-list-item-inner">'+
+					'<div class="aui-list-item-media">'+
+					'<img src="'+mimg+'" class="aui-img-round aui-list-img-sm">'+
+					'</div>'+
+					'<div class="aui-list-item-inner ">'+
+					'<div class="aui-list-item-text">'+
+					'<div class="aui-list-item-title">'+mname+'</div>'+
+					'<div class="aui-list-item-right"    >'+
+					'<img  id="img_'+cid+'" onclick="addzan('+JSON.stringify(val).replace(/"/g, '&quot;')+',this)" class="" style="display:inline-block;width: 18px;cursor:pointer;height: 18px; vertical-align: bottom;margin-right: 4px" src="/themes/img/icon/dianzan1.png" >'+
+					'<span id="zan_count_'+cid+'">'+zan_count+'</span></img>'+
+					'</div>'+
+					
+					'</div>'+
+					'<div class="aui-list-item-text">'+ccontent+
+					'<div class="aui-list-item-text">'+timedifferen+'</div>'+
+					
+					'</div>'+
+					'</div></div></li>';
+	
+				
+				$("#comment").append(comment);
+				 }); 
+				
+					//用户是否有点赞过 
+					$.post("/new/findzan","nid="+nid,function(rs){
+						//alert(rs.status);
+						console.log(rs.dianzan);
+						if(rs.length!=0){
+							$.each(rs.dianzan,function(i,val){
+								var cid=val.cid;
+								
+								//alert(cid);
+								if($("#img_"+cid).attr("src")=="/themes/img/icon/dianzan1.png"){
+								$("#img_"+cid).attr("src","/themes/img/icon/dianzan2.png");
+								}
+								console.log($("#img_"+cid).attr("src"));
+							})
+							
+						}
+					
+						
+					});
+		}  );
+		
+	
+	}
+	
+	function diffTime(startDate,endDate) {
+		
+	    var diff=endDate.getTime() - new Date(startDate);//.getTime();//时间差的毫秒数
+
+	    //计算出相差天数
+	    var days=Math.floor(diff/(24*3600*1000));
+
+	    //计算出小时数
+	    var leave1=diff%(24*3600*1000);    //计算天数后剩余的毫秒数
+	    var hours=Math.floor(leave1/(3600*1000));
+	    //计算相差分钟数
+	    var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+	    var minutes=Math.floor(leave2/(60*1000));
+
+	    //计算相差秒数
+	    var leave3=leave2%(60*1000);      //计算分钟数后剩余的毫秒数
+	    var seconds=Math.round(leave3/1000);
+
+	    var returnStr = seconds + "秒前";
+	    if(minutes>0) {
+	        returnStr = minutes + "分钟前";//+ returnStr;
+	    }
+	    if(hours>0) {
+	        returnStr = hours + "小时前";// + returnStr;
+	    }
+	    if(days>0) {
+	        returnStr = days + "天前" ;//+ returnStr;
+	    }
+	    if(days<4){ return returnStr;}
+	    else{return startDate;}
+	}
+
+
+
+	// videojs.options.flash.swf = "video-js.swf";
+</script>
+
+
+</body>
+</html>

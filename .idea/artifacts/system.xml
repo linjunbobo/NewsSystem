@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="system">
+    <output-path>$PROJECT_DIR$/classes/artifacts/system</output-path>
+    <root id="archive" name="system.war">
+      <element id="module-source" name="NewsSystem" />
+      <element id="module-source" name="NewsSystem-mapper" />
+      <element id="module-source" name="NewsSystem-service" />
+      <element id="module-source" name="NewsSystem-web" />
+    </root>
+  </artifact>
+</component>
